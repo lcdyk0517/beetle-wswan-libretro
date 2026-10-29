@@ -78,10 +78,10 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       NULL,
       {
          { "frontend", "Frontend Username" },
-         { "default",  "Default (Mednafen)" },
+         { "default",  "Default (lcdyk)" },
          { NULL, NULL },
       },
-      "frontend",
+      "default",
    },
    {
       "wswan_birth_year",
@@ -203,7 +203,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "2029", NULL },
          { NULL, NULL },
       },
-      "1989",
+      "2000",
    },
    {
       "wswan_birth_month",
@@ -227,7 +227,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "12", "December" },
          { NULL, NULL },
       },
-      "6",
+      "5",
    },
    {
       "wswan_birth_day",
@@ -270,7 +270,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "31", NULL },
          { NULL, NULL },
       },
-      "23",
+      "17",
    },
    {
       "wswan_sex",
@@ -284,7 +284,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "male",   "Male" },
          { NULL, NULL },
       },
-      "female",
+      "male",
    },
    {
       "wswan_blood",
@@ -300,7 +300,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "ab", "AB" },
          { NULL, NULL },
       },
-      "o",
+      "ab",
    },
    {
       "wswan_rotate_display",
@@ -331,6 +331,36 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL},
       },
       "auto",
+   },
+   {
+      "wswan_turbo_xy",
+      "A/B Turbo Buttons",
+      NULL,
+      "When enabled, holding the turbo button auto-fires A or B; the physical A/B buttons remain fully usable. The turbo buttons depend on the button mapping: X/Y with the landscape mapping, L2/R2 with the portrait mapping (which uses X/Y as X-Cursor directions). Enabled by default. Set the auto-fire frequency with 'Turbo Speed'.",
+      NULL,
+      NULL,
+      {
+         { "disabled", NULL },
+         { "enabled",  NULL },
+         { NULL, NULL },
+      },
+      "enabled",
+   },
+   {
+      "wswan_turbo_speed",
+      "Turbo Speed",
+      NULL,
+      "Set the auto-fire frequency of the turbo buttons, in presses per second (at 60fps; scales with the emulated refresh rate).",
+      NULL,
+      NULL,
+      {
+         { "2", "Fast (15 Hz)" },
+         { "3", "Normal (10 Hz)" },
+         { "4", "Slow (7.5 Hz)" },
+         { "6", "Very Slow (5 Hz)" },
+         { NULL, NULL },
+      },
+      "3",
    },
    {
       "wswan_mono_palette",

@@ -979,62 +979,354 @@ struct retro_core_options_v2 options_ca = {
 
 /* RETRO_LANGUAGE_CHS */
 
-#define WSWAN_ROTATE_DISPLAY_LABEL_CHS "显示旋转"
-#define WSWAN_ROTATE_DISPLAY_INFO_0_CHS NULL
-#define OPTION_VAL_MANUAL_CHS "手工"
+#define WSWAN_LANGUAGE_LABEL_CHS "主机语言（需要重新启动）"
+#define WSWAN_LANGUAGE_INFO_0_CHS "设置存储在内部 EEPROM 中的主机语言。已知唯一会读取该设置的游戏是《数码宝贝驯兽师：战斗之魂》(Digimon Tamers - Battle Spirit)。加载游戏内容时生效。"
+#define OPTION_VAL_ENGLISH_CHS "英语"
+#define OPTION_VAL_JAPANESE_CHS "日语"
+#define WSWAN_NAME_SOURCE_LABEL_CHS "机主名字来源（需要重新启动）"
+#define WSWAN_NAME_SOURCE_INFO_0_CHS "选择写入内部 EEPROM 的机主名字，多款游戏会用它向玩家打招呼。<前端用户名>将在可用时使用前端中配置的用户名。加载游戏内容时生效。"
+#define OPTION_VAL_FRONTEND_CHS "前端用户名"
+#define OPTION_VAL_DEFAULT_NAME_CHS "默认（lcdyk）"
+#define WSWAN_BIRTH_YEAR_LABEL_CHS "机主出生年份（需要重新启动）"
+#define WSWAN_BIRTH_YEAR_INFO_0_CHS "设置存储在内部 EEPROM 中的机主出生年份。部分游戏会在机主生日当天触发特殊事件。加载游戏内容时生效。"
+#define WSWAN_BIRTH_MONTH_LABEL_CHS "机主出生月份（需要重新启动）"
+#define WSWAN_BIRTH_MONTH_INFO_0_CHS "设置存储在内部 EEPROM 中的机主出生月份。部分游戏会在机主生日当天触发特殊事件。加载游戏内容时生效。"
+#define OPTION_VAL_MONTH_1_CHS "一月"
+#define OPTION_VAL_MONTH_2_CHS "二月"
+#define OPTION_VAL_MONTH_3_CHS "三月"
+#define OPTION_VAL_MONTH_4_CHS "四月"
+#define OPTION_VAL_MONTH_5_CHS "五月"
+#define OPTION_VAL_MONTH_6_CHS "六月"
+#define OPTION_VAL_MONTH_7_CHS "七月"
+#define OPTION_VAL_MONTH_8_CHS "八月"
+#define OPTION_VAL_MONTH_9_CHS "九月"
+#define OPTION_VAL_MONTH_10_CHS "十月"
+#define OPTION_VAL_MONTH_11_CHS "十一月"
+#define OPTION_VAL_MONTH_12_CHS "十二月"
+#define WSWAN_BIRTH_DAY_LABEL_CHS "机主出生日期（需要重新启动）"
+#define WSWAN_BIRTH_DAY_INFO_0_CHS "设置存储在内部 EEPROM 中的机主出生日期。部分游戏会在机主生日当天触发特殊事件。加载游戏内容时生效。"
+#define WSWAN_SEX_LABEL_CHS "机主性别（需要重新启动）"
+#define WSWAN_SEX_INFO_0_CHS "设置存储在内部 EEPROM 中的机主性别。加载游戏内容时生效。"
+#define OPTION_VAL_FEMALE_CHS "女"
+#define OPTION_VAL_MALE_CHS "男"
+#define WSWAN_BLOOD_LABEL_CHS "机主血型（需要重新启动）"
+#define WSWAN_BLOOD_INFO_0_CHS "设置存储在内部 EEPROM 中的机主血型。加载游戏内容时生效。"
+#define OPTION_VAL_BLOOD_O_CHS "O 型"
+#define OPTION_VAL_BLOOD_A_CHS "A 型"
+#define OPTION_VAL_BLOOD_B_CHS "B 型"
+#define OPTION_VAL_BLOOD_AB_CHS "AB 型"
+#define WSWAN_ROTATE_DISPLAY_LABEL_CHS "屏幕旋转"
+#define WSWAN_ROTATE_DISPLAY_INFO_0_CHS "选择主机屏幕的方向。<纵向>用于在常规（横向）显示器上正确显示竖版游戏的布局。<手动>允许通过控制器旋转画面（默认按键：SELECT）。"
+#define OPTION_VAL_MANUAL_CHS "手动"
 #define OPTION_VAL_LANDSCAPE_CHS "横向"
 #define OPTION_VAL_PORTRAIT_CHS "纵向"
-#define WSWAN_ROTATE_KEYMAP_LABEL_CHS NULL
-#define WSWAN_ROTATE_KEYMAP_INFO_0_CHS "选择首选按钮映射。“自动”将调整按钮映射以匹配当前显示旋转。"
+#define WSWAN_ROTATE_KEYMAP_LABEL_CHS "按键映射方向"
+#define WSWAN_ROTATE_KEYMAP_INFO_0_CHS "选择偏好的按键映射方案。<自动>会根据当前的屏幕旋转自动调整按键映射。"
 #define OPTION_VAL_AUTO_CHS "自动"
-#define WSWAN_MONO_PALETTE_LABEL_CHS "色板"
-#define WSWAN_MONO_PALETTE_INFO_0_CHS "选择WonderSwan (Mono) 游戏的颜色化。'WS' 调色板将模仿原始WonderSwan 硬件的显示。"
+#define WSWAN_TURBO_XY_LABEL_CHS "A/B 连发"
+#define WSWAN_TURBO_XY_INFO_0_CHS "开启后，按住连发键可自动连发 A 或 B 键，实体 A/B 键仍可正常使用。连发键依按键映射而定：横向映射为 X/Y；纵向映射下 X/Y 被 X 光标占用，自动改用 L2/R2。默认开启。连发频率可通过“连发速度”调整。"
+#define OPTION_VAL_DISABLED_CHS "关闭"
+#define OPTION_VAL_ENABLED_CHS "开启"
+#define WSWAN_TURBO_SPEED_LABEL_CHS "连发速度"
+#define WSWAN_TURBO_SPEED_INFO_0_CHS "设置连发键的自动触发频率（60fps 下每秒按压次数；随模拟刷新率等比变化）。"
+#define OPTION_VAL_TURBO_FAST_CHS "快（15 Hz）"
+#define OPTION_VAL_TURBO_NORMAL_CHS "标准（10 Hz）"
+#define OPTION_VAL_TURBO_SLOW_CHS "慢（7.5 Hz）"
+#define OPTION_VAL_TURBO_VSLOW_CHS "极慢（5 Hz）"
+#define WSWAN_MONO_PALETTE_LABEL_CHS "单色调色板"
+#define WSWAN_MONO_PALETTE_INFO_0_CHS "选择 WonderSwan（单色）游戏的着色方案。<WS> 系列色板用于还原相应原版主机的显示效果。"
 #define OPTION_VAL_DEFAULT_CHS "灰阶"
-#define OPTION_VAL_WONDERSWAN_CHS NULL
-#define OPTION_VAL_WONDESWAN_COLOR_CHS NULL
-#define OPTION_VAL_SWANCRYSTAL_CHS NULL
-#define OPTION_VAL_GB_DMG_CHS "Game Boy DMG（元祖GB）"
-#define OPTION_VAL_GB_POCKET_CHS NULL
-#define OPTION_VAL_GB_LIGHT_CHS NULL
-#define OPTION_VAL_BLOSSOM_PINK_CHS NULL
-#define OPTION_VAL_BUBBLES_BLUE_CHS NULL
-#define OPTION_VAL_BUTTERCUP_GREEN_CHS NULL
-#define OPTION_VAL_DIGIVICE_CHS NULL
-#define OPTION_VAL_GAME_COM_CHS NULL
-#define OPTION_VAL_GAMEKING_CHS NULL
-#define OPTION_VAL_GAME_MASTER_CHS NULL
-#define OPTION_VAL_GOLDEN_WILD_CHS NULL
-#define OPTION_VAL_GREENSCALE_CHS NULL
-#define OPTION_VAL_HOKAGE_ORANGE_CHS NULL
-#define OPTION_VAL_LABO_FAWN_CHS NULL
-#define OPTION_VAL_LEGENDARY_SUPER_SAIYAN_CHS NULL
-#define OPTION_VAL_MICROVISION_CHS NULL
-#define OPTION_VAL_MILLION_LIVE_GOLD_CHS NULL
-#define OPTION_VAL_ODYSSEY_GOLD_CHS NULL
-#define OPTION_VAL_SHINY_SKY_BLUE_CHS NULL
-#define OPTION_VAL_SLIME_BLUE_CHS NULL
-#define OPTION_VAL_TI_83_CHS NULL
-#define OPTION_VAL_TRAVEL_WOOD_CHS NULL
-#define OPTION_VAL_VIRTUAL_BOY_CHS NULL
-#define WSWAN_GFX_COLORS_LABEL_CHS "色深(需要重启)"
-#define WSWAN_GFX_COLORS_INFO_0_CHS "24-bit 较慢且无法在所有平台上使用。"
-#define OPTION_VAL_16BIT_CHS "千位级(16-bit)"
-#define OPTION_VAL_24BIT_CHS "百万位级(24-bit)"
+#define OPTION_VAL_WONDERSWAN_CHS "WS - WonderSwan 主机"
+#define OPTION_VAL_WONDESWAN_COLOR_CHS "WS - WonderSwan Color 主机"
+#define OPTION_VAL_SWANCRYSTAL_CHS "WS - SwanCrystal 主机"
+#define OPTION_VAL_GB_DMG_CHS "Game Boy DMG 主机"
+#define OPTION_VAL_GB_POCKET_CHS "Game Boy Pocket 主机"
+#define OPTION_VAL_GB_LIGHT_CHS "Game Boy Light 主机"
+#define OPTION_VAL_BLOSSOM_PINK_CHS "飞天小女警·花花粉"
+#define OPTION_VAL_BUBBLES_BLUE_CHS "飞天小女警·泡泡蓝"
+#define OPTION_VAL_BUTTERCUP_GREEN_CHS "飞天小女警·毛毛绿"
+#define OPTION_VAL_DIGIVICE_CHS "数码宝贝机 D2"
+#define OPTION_VAL_GAME_COM_CHS "Game.com 主机"
+#define OPTION_VAL_GAMEKING_CHS "GameKing 主机"
+#define OPTION_VAL_GAME_MASTER_CHS "Game Master 主机"
+#define OPTION_VAL_GOLDEN_WILD_CHS "旷野金"
+#define OPTION_VAL_GREENSCALE_CHS "绿色阶"
+#define OPTION_VAL_HOKAGE_ORANGE_CHS "火影橙"
+#define OPTION_VAL_LABO_FAWN_CHS "瓦楞纸棕"
+#define OPTION_VAL_LEGENDARY_SUPER_SAIYAN_CHS "传说中的超级赛亚人（绿光）"
+#define OPTION_VAL_MICROVISION_CHS "Microvision 主机"
+#define OPTION_VAL_MILLION_LIVE_GOLD_CHS "偶像大师 百万现场（金色）"
+#define OPTION_VAL_ODYSSEY_GOLD_CHS "奥德赛金币（金黄）"
+#define OPTION_VAL_SHINY_SKY_BLUE_CHS "闪亮天蓝"
+#define OPTION_VAL_SLIME_BLUE_CHS "史莱姆蓝"
+#define OPTION_VAL_TI_83_CHS "TI-83 图形计算器"
+#define OPTION_VAL_TRAVEL_WOOD_CHS "织梦岛DX 旅照模式（粉扑色）"
+#define OPTION_VAL_VIRTUAL_BOY_CHS "Virtual Boy 主机（红黑）"
+#define WSWAN_GFX_COLORS_LABEL_CHS "色彩深度（需要重新启动）"
+#define WSWAN_GFX_COLORS_INFO_0_CHS "全彩（24 位）速度较慢，且并非所有平台都支持。"
+#define OPTION_VAL_16BIT_CHS "高彩色（16 位）"
+#define OPTION_VAL_24BIT_CHS "全彩色（24 位）"
 #define WSWAN_FRAMESKIP_LABEL_CHS "跳帧"
-#define WSWAN_FRAMESKIP_INFO_0_CHS "跳过帧以避免运行下的音频缓冲区(崩溃)。提高性能以牺牲视觉性能。 “自动”跳板帧在前端建议时。“手动”使用了“Frameskip 阈值(%)”设置。"
-#define WSWAN_FRAMESKIP_THRESHOLD_LABEL_CHS "跳帧阈值(%)"
-#define WSWAN_FRAMESKIP_THRESHOLD_INFO_0_CHS "当'Frameskip'设置为“手动”时，这将指定音频缓冲区占用阈值(百分比)，低于此值的帧将被跳过。 较高的值会导致帧更频繁地丢失，从而降低破碎的风险。"
+#define WSWAN_FRAMESKIP_INFO_0_CHS "跳过部分帧以避免音频缓冲区欠载（爆音），以画面流畅度换取性能。<自动>在前端建议时跳帧；<手动>使用“跳帧阈值（%）”设置。"
+#define WSWAN_FRAMESKIP_THRESHOLD_LABEL_CHS "跳帧阈值（%）"
+#define WSWAN_FRAMESKIP_THRESHOLD_INFO_0_CHS "当“跳帧”设为“手动”时，该选项指定音频缓冲区占用率的阈值（百分比），占用率低于此值时将跳过画面帧。数值越高，丢帧越频繁，可降低爆音风险。"
 #define WSWAN_60HZ_MODE_LABEL_CHS "60Hz 模式"
-#define WSWAN_60HZ_MODE_INFO_0_CHS NULL
-#define WSWAN_SOUND_SAMPLE_RATE_LABEL_CHS "声音输出采样率"
-#define WSWAN_SOUND_SAMPLE_RATE_INFO_0_CHS "较高的数值略微提高了音质，牺牲了性能。"
-#define WSWAN_SOUND_LOW_PASS_LABEL_CHS "音频过滤器"
-#define WSWAN_SOUND_LOW_PASS_INFO_0_CHS NULL
-
+#define WSWAN_60HZ_MODE_INFO_0_CHS "以 60Hz 而非 WonderSwan 原生 75Hz 的刷新率更新画面（每五帧丢弃一帧）。会降低画面流畅度，但可避免在不支持 60Hz 以上刷新率的显示器上出现画面撕裂。"
+#define WSWAN_SOUND_SAMPLE_RATE_LABEL_CHS "音频输出采样率"
+#define WSWAN_SOUND_SAMPLE_RATE_INFO_0_CHS "较高的数值可略微提升音质，但会降低性能。"
+#define WSWAN_SOUND_LOW_PASS_LABEL_CHS "音频滤波器"
+#define WSWAN_SOUND_LOW_PASS_INFO_0_CHS "WonderSwan 的音频芯片有时会产生较为刺耳的芯片音乐，开启低通滤波可让声音更柔和。"
 struct retro_core_option_v2_category option_cats_chs[] = {
    { NULL, NULL, NULL },
 };
 struct retro_core_option_v2_definition option_defs_chs[] = {
+   {
+      "wswan_language",
+      WSWAN_LANGUAGE_LABEL_CHS,
+      NULL,
+      WSWAN_LANGUAGE_INFO_0_CHS,
+      NULL,
+      NULL,
+      {
+         { "english", OPTION_VAL_ENGLISH_CHS },
+         { "japanese", OPTION_VAL_JAPANESE_CHS },
+         { NULL, NULL },
+      },
+      "english"
+   },
+   {
+      "wswan_name_source",
+      WSWAN_NAME_SOURCE_LABEL_CHS,
+      NULL,
+      WSWAN_NAME_SOURCE_INFO_0_CHS,
+      NULL,
+      NULL,
+      {
+         { "frontend", OPTION_VAL_FRONTEND_CHS },
+         { "default", OPTION_VAL_DEFAULT_NAME_CHS },
+         { NULL, NULL },
+      },
+      "default"
+   },
+   {
+      "wswan_birth_year",
+      WSWAN_BIRTH_YEAR_LABEL_CHS,
+      NULL,
+      WSWAN_BIRTH_YEAR_INFO_0_CHS,
+      NULL,
+      NULL,
+      {
+         { "1920", NULL },
+         { "1921", NULL },
+         { "1922", NULL },
+         { "1923", NULL },
+         { "1924", NULL },
+         { "1925", NULL },
+         { "1926", NULL },
+         { "1927", NULL },
+         { "1928", NULL },
+         { "1929", NULL },
+         { "1930", NULL },
+         { "1931", NULL },
+         { "1932", NULL },
+         { "1933", NULL },
+         { "1934", NULL },
+         { "1935", NULL },
+         { "1936", NULL },
+         { "1937", NULL },
+         { "1938", NULL },
+         { "1939", NULL },
+         { "1940", NULL },
+         { "1941", NULL },
+         { "1942", NULL },
+         { "1943", NULL },
+         { "1944", NULL },
+         { "1945", NULL },
+         { "1946", NULL },
+         { "1947", NULL },
+         { "1948", NULL },
+         { "1949", NULL },
+         { "1950", NULL },
+         { "1951", NULL },
+         { "1952", NULL },
+         { "1953", NULL },
+         { "1954", NULL },
+         { "1955", NULL },
+         { "1956", NULL },
+         { "1957", NULL },
+         { "1958", NULL },
+         { "1959", NULL },
+         { "1960", NULL },
+         { "1961", NULL },
+         { "1962", NULL },
+         { "1963", NULL },
+         { "1964", NULL },
+         { "1965", NULL },
+         { "1966", NULL },
+         { "1967", NULL },
+         { "1968", NULL },
+         { "1969", NULL },
+         { "1970", NULL },
+         { "1971", NULL },
+         { "1972", NULL },
+         { "1973", NULL },
+         { "1974", NULL },
+         { "1975", NULL },
+         { "1976", NULL },
+         { "1977", NULL },
+         { "1978", NULL },
+         { "1979", NULL },
+         { "1980", NULL },
+         { "1981", NULL },
+         { "1982", NULL },
+         { "1983", NULL },
+         { "1984", NULL },
+         { "1985", NULL },
+         { "1986", NULL },
+         { "1987", NULL },
+         { "1988", NULL },
+         { "1989", NULL },
+         { "1990", NULL },
+         { "1991", NULL },
+         { "1992", NULL },
+         { "1993", NULL },
+         { "1994", NULL },
+         { "1995", NULL },
+         { "1996", NULL },
+         { "1997", NULL },
+         { "1998", NULL },
+         { "1999", NULL },
+         { "2000", NULL },
+         { "2001", NULL },
+         { "2002", NULL },
+         { "2003", NULL },
+         { "2004", NULL },
+         { "2005", NULL },
+         { "2006", NULL },
+         { "2007", NULL },
+         { "2008", NULL },
+         { "2009", NULL },
+         { "2010", NULL },
+         { "2011", NULL },
+         { "2012", NULL },
+         { "2013", NULL },
+         { "2014", NULL },
+         { "2015", NULL },
+         { "2016", NULL },
+         { "2017", NULL },
+         { "2018", NULL },
+         { "2019", NULL },
+         { "2020", NULL },
+         { "2021", NULL },
+         { "2022", NULL },
+         { "2023", NULL },
+         { "2024", NULL },
+         { "2025", NULL },
+         { "2026", NULL },
+         { "2027", NULL },
+         { "2028", NULL },
+         { "2029", NULL },
+         { NULL, NULL },
+      },
+      "2000"
+   },
+   {
+      "wswan_birth_month",
+      WSWAN_BIRTH_MONTH_LABEL_CHS,
+      NULL,
+      WSWAN_BIRTH_MONTH_INFO_0_CHS,
+      NULL,
+      NULL,
+      {
+         { "1", OPTION_VAL_MONTH_1_CHS },
+         { "2", OPTION_VAL_MONTH_2_CHS },
+         { "3", OPTION_VAL_MONTH_3_CHS },
+         { "4", OPTION_VAL_MONTH_4_CHS },
+         { "5", OPTION_VAL_MONTH_5_CHS },
+         { "6", OPTION_VAL_MONTH_6_CHS },
+         { "7", OPTION_VAL_MONTH_7_CHS },
+         { "8", OPTION_VAL_MONTH_8_CHS },
+         { "9", OPTION_VAL_MONTH_9_CHS },
+         { "10", OPTION_VAL_MONTH_10_CHS },
+         { "11", OPTION_VAL_MONTH_11_CHS },
+         { "12", OPTION_VAL_MONTH_12_CHS },
+         { NULL, NULL },
+      },
+      "5"
+   },
+   {
+      "wswan_birth_day",
+      WSWAN_BIRTH_DAY_LABEL_CHS,
+      NULL,
+      WSWAN_BIRTH_DAY_INFO_0_CHS,
+      NULL,
+      NULL,
+      {
+         { "1", NULL },
+         { "2", NULL },
+         { "3", NULL },
+         { "4", NULL },
+         { "5", NULL },
+         { "6", NULL },
+         { "7", NULL },
+         { "8", NULL },
+         { "9", NULL },
+         { "10", NULL },
+         { "11", NULL },
+         { "12", NULL },
+         { "13", NULL },
+         { "14", NULL },
+         { "15", NULL },
+         { "16", NULL },
+         { "17", NULL },
+         { "18", NULL },
+         { "19", NULL },
+         { "20", NULL },
+         { "21", NULL },
+         { "22", NULL },
+         { "23", NULL },
+         { "24", NULL },
+         { "25", NULL },
+         { "26", NULL },
+         { "27", NULL },
+         { "28", NULL },
+         { "29", NULL },
+         { "30", NULL },
+         { "31", NULL },
+         { NULL, NULL },
+      },
+      "17"
+   },
+   {
+      "wswan_sex",
+      WSWAN_SEX_LABEL_CHS,
+      NULL,
+      WSWAN_SEX_INFO_0_CHS,
+      NULL,
+      NULL,
+      {
+         { "female", OPTION_VAL_FEMALE_CHS },
+         { "male", OPTION_VAL_MALE_CHS },
+         { NULL, NULL },
+      },
+      "male"
+   },
+   {
+      "wswan_blood",
+      WSWAN_BLOOD_LABEL_CHS,
+      NULL,
+      WSWAN_BLOOD_INFO_0_CHS,
+      NULL,
+      NULL,
+      {
+         { "o", OPTION_VAL_BLOOD_O_CHS },
+         { "a", OPTION_VAL_BLOOD_A_CHS },
+         { "b", OPTION_VAL_BLOOD_B_CHS },
+         { "ab", OPTION_VAL_BLOOD_AB_CHS },
+         { NULL, NULL },
+      },
+      "ab"
+   },
    {
       "wswan_rotate_display",
       WSWAN_ROTATE_DISPLAY_LABEL_CHS,
@@ -1043,12 +1335,12 @@ struct retro_core_option_v2_definition option_defs_chs[] = {
       NULL,
       NULL,
       {
-         { "manual",    OPTION_VAL_MANUAL_CHS },
+         { "manual", OPTION_VAL_MANUAL_CHS },
          { "landscape", OPTION_VAL_LANDSCAPE_CHS },
-         { "portrait",  OPTION_VAL_PORTRAIT_CHS },
+         { "portrait", OPTION_VAL_PORTRAIT_CHS },
          { NULL, NULL },
       },
-      "manual",
+      "manual"
    },
    {
       "wswan_rotate_keymap",
@@ -1058,12 +1350,42 @@ struct retro_core_option_v2_definition option_defs_chs[] = {
       NULL,
       NULL,
       {
-         { "auto",     OPTION_VAL_AUTO_CHS },
+         { "auto", OPTION_VAL_AUTO_CHS },
          { "disabled", OPTION_VAL_LANDSCAPE_CHS },
-         { "enabled",  OPTION_VAL_PORTRAIT_CHS },
-         { NULL, NULL},
+         { "enabled", OPTION_VAL_PORTRAIT_CHS },
+         { NULL, NULL },
       },
-      "auto",
+      "auto"
+   },
+   {
+      "wswan_turbo_xy",
+      WSWAN_TURBO_XY_LABEL_CHS,
+      NULL,
+      WSWAN_TURBO_XY_INFO_0_CHS,
+      NULL,
+      NULL,
+      {
+         { "disabled", OPTION_VAL_DISABLED_CHS },
+         { "enabled", OPTION_VAL_ENABLED_CHS },
+         { NULL, NULL },
+      },
+      "enabled"
+   },
+   {
+      "wswan_turbo_speed",
+      WSWAN_TURBO_SPEED_LABEL_CHS,
+      NULL,
+      WSWAN_TURBO_SPEED_INFO_0_CHS,
+      NULL,
+      NULL,
+      {
+         { "2", OPTION_VAL_TURBO_FAST_CHS },
+         { "3", OPTION_VAL_TURBO_NORMAL_CHS },
+         { "4", OPTION_VAL_TURBO_SLOW_CHS },
+         { "6", OPTION_VAL_TURBO_VSLOW_CHS },
+         { NULL, NULL },
+      },
+      "3"
    },
    {
       "wswan_mono_palette",
@@ -1073,33 +1395,33 @@ struct retro_core_option_v2_definition option_defs_chs[] = {
       NULL,
       NULL,
       {
-         { "default",                OPTION_VAL_DEFAULT_CHS },
-         { "wonderswan",             OPTION_VAL_WONDERSWAN_CHS },
-         { "wondeswan_color",        OPTION_VAL_WONDESWAN_COLOR_CHS },
-         { "swancrystal",            OPTION_VAL_SWANCRYSTAL_CHS },
-         { "gb_dmg",                 OPTION_VAL_GB_DMG_CHS },
-         { "gb_pocket",              OPTION_VAL_GB_POCKET_CHS },
-         { "gb_light",               OPTION_VAL_GB_LIGHT_CHS },
-         { "blossom_pink",           OPTION_VAL_BLOSSOM_PINK_CHS },
-         { "bubbles_blue",           OPTION_VAL_BUBBLES_BLUE_CHS },
-         { "buttercup_green",        OPTION_VAL_BUTTERCUP_GREEN_CHS },
-         { "digivice",               OPTION_VAL_DIGIVICE_CHS },
-         { "game_com",               OPTION_VAL_GAME_COM_CHS },
-         { "gameking",               OPTION_VAL_GAMEKING_CHS },
-         { "game_master",            OPTION_VAL_GAME_MASTER_CHS },
-         { "golden_wild",            OPTION_VAL_GOLDEN_WILD_CHS },
-         { "greenscale",             OPTION_VAL_GREENSCALE_CHS },
-         { "hokage_orange",          OPTION_VAL_HOKAGE_ORANGE_CHS },
-         { "labo_fawn",              OPTION_VAL_LABO_FAWN_CHS },
+         { "default", OPTION_VAL_DEFAULT_CHS },
+         { "wonderswan", OPTION_VAL_WONDERSWAN_CHS },
+         { "wondeswan_color", OPTION_VAL_WONDESWAN_COLOR_CHS },
+         { "swancrystal", OPTION_VAL_SWANCRYSTAL_CHS },
+         { "gb_dmg", OPTION_VAL_GB_DMG_CHS },
+         { "gb_pocket", OPTION_VAL_GB_POCKET_CHS },
+         { "gb_light", OPTION_VAL_GB_LIGHT_CHS },
+         { "blossom_pink", OPTION_VAL_BLOSSOM_PINK_CHS },
+         { "bubbles_blue", OPTION_VAL_BUBBLES_BLUE_CHS },
+         { "buttercup_green", OPTION_VAL_BUTTERCUP_GREEN_CHS },
+         { "digivice", OPTION_VAL_DIGIVICE_CHS },
+         { "game_com", OPTION_VAL_GAME_COM_CHS },
+         { "gameking", OPTION_VAL_GAMEKING_CHS },
+         { "game_master", OPTION_VAL_GAME_MASTER_CHS },
+         { "golden_wild", OPTION_VAL_GOLDEN_WILD_CHS },
+         { "greenscale", OPTION_VAL_GREENSCALE_CHS },
+         { "hokage_orange", OPTION_VAL_HOKAGE_ORANGE_CHS },
+         { "labo_fawn", OPTION_VAL_LABO_FAWN_CHS },
          { "legendary_super_saiyan", OPTION_VAL_LEGENDARY_SUPER_SAIYAN_CHS },
-         { "microvision",            OPTION_VAL_MICROVISION_CHS },
-         { "million_live_gold",      OPTION_VAL_MILLION_LIVE_GOLD_CHS },
-         { "odyssey_gold",           OPTION_VAL_ODYSSEY_GOLD_CHS },
-         { "shiny_sky_blue",         OPTION_VAL_SHINY_SKY_BLUE_CHS },
-         { "slime_blue",             OPTION_VAL_SLIME_BLUE_CHS },
-         { "ti_83",                  OPTION_VAL_TI_83_CHS },
-         { "travel_wood",            OPTION_VAL_TRAVEL_WOOD_CHS },
-         { "virtual_boy",            OPTION_VAL_VIRTUAL_BOY_CHS },
+         { "microvision", OPTION_VAL_MICROVISION_CHS },
+         { "million_live_gold", OPTION_VAL_MILLION_LIVE_GOLD_CHS },
+         { "odyssey_gold", OPTION_VAL_ODYSSEY_GOLD_CHS },
+         { "shiny_sky_blue", OPTION_VAL_SHINY_SKY_BLUE_CHS },
+         { "slime_blue", OPTION_VAL_SLIME_BLUE_CHS },
+         { "ti_83", OPTION_VAL_TI_83_CHS },
+         { "travel_wood", OPTION_VAL_TRAVEL_WOOD_CHS },
+         { "virtual_boy", OPTION_VAL_VIRTUAL_BOY_CHS },
          { NULL, NULL },
       },
       "default"
@@ -1126,9 +1448,9 @@ struct retro_core_option_v2_definition option_defs_chs[] = {
       NULL,
       NULL,
       {
-         { "disabled", NULL },
-         { "auto",     OPTION_VAL_AUTO_CHS },
-         { "manual",   OPTION_VAL_MANUAL_CHS },
+         { "disabled", OPTION_VAL_DISABLED_CHS },
+         { "auto", OPTION_VAL_AUTO_CHS },
+         { "manual", OPTION_VAL_MANUAL_CHS },
          { NULL, NULL },
       },
       "disabled"
@@ -1169,11 +1491,11 @@ struct retro_core_option_v2_definition option_defs_chs[] = {
       NULL,
       NULL,
       {
-         { "disabled", NULL },
-         { "enabled",  NULL },
+         { "disabled", OPTION_VAL_DISABLED_CHS },
+         { "enabled", OPTION_VAL_ENABLED_CHS },
          { NULL, NULL },
       },
-      "enabled",
+      "enabled"
    },
    {
       "wswan_sound_sample_rate",
@@ -1183,13 +1505,13 @@ struct retro_core_option_v2_definition option_defs_chs[] = {
       NULL,
       NULL,
       {
-         { "11025",  NULL },
-         { "22050",  NULL },
-         { "44100",  NULL },
-         { "48000",  NULL },
+         { "11025", NULL },
+         { "22050", NULL },
+         { "44100", NULL },
+         { "48000", NULL },
          { NULL, NULL },
       },
-      "44100",
+      "44100"
    },
    {
       "wswan_sound_low_pass",
@@ -1199,14 +1521,15 @@ struct retro_core_option_v2_definition option_defs_chs[] = {
       NULL,
       NULL,
       {
-         { "disabled", NULL },
-         { "enabled",  NULL },
+         { "disabled", OPTION_VAL_DISABLED_CHS },
+         { "enabled", OPTION_VAL_ENABLED_CHS },
          { NULL, NULL },
       },
-      "disabled",
+      "disabled"
    },
    { NULL, NULL, NULL, NULL, NULL, NULL, {{0}}, NULL },
 };
+
 struct retro_core_options_v2 options_chs = {
    option_cats_chs,
    option_defs_chs
@@ -1222,6 +1545,14 @@ struct retro_core_options_v2 options_chs = {
 #define WSWAN_ROTATE_KEYMAP_LABEL_CHT "按鍵映射"
 #define WSWAN_ROTATE_KEYMAP_INFO_0_CHT "設定按鍵映射方向, 設定<自動>時依畫面的方向自動調整按鍵映射。"
 #define OPTION_VAL_AUTO_CHT "自動"
+#define WSWAN_TURBO_XY_LABEL_CHT "A/B 連發"
+#define WSWAN_TURBO_XY_INFO_0_CHT "開啟後，按住連發鍵可自動連發 A 或 B 鍵，實體 A/B 鍵仍可正常使用。連發鍵依按鍵映射而定：橫向映射為 X/Y；縱向映射下 X/Y 被 X 光標佔用，自動改用 L2/R2。預設開啟。連發頻率可透過「連發速度」調整。"
+#define WSWAN_TURBO_SPEED_LABEL_CHT "連發速度"
+#define WSWAN_TURBO_SPEED_INFO_0_CHT "設定連發鍵的自動觸發頻率（60fps 下每秒按壓次數；隨模擬刷新率等比變化）。"
+#define OPTION_VAL_TURBO_FAST_CHT "快 (15 Hz)"
+#define OPTION_VAL_TURBO_NORMAL_CHT "標準 (10 Hz)"
+#define OPTION_VAL_TURBO_SLOW_CHT "慢 (7.5 Hz)"
+#define OPTION_VAL_TURBO_VSLOW_CHT "極慢 (5 Hz)"
 #define WSWAN_MONO_PALETTE_LABEL_CHT "影像配色"
 #define WSWAN_MONO_PALETTE_INFO_0_CHT "設定WonderSwan主機單色遊戲的著色模式, 選項WS類別為WonderSwan主機的擬真顯示。"
 #define OPTION_VAL_DEFAULT_CHT "灰階"
@@ -1299,6 +1630,36 @@ struct retro_core_option_v2_definition option_defs_cht[] = {
          { NULL, NULL},
       },
       "auto",
+   },
+   {
+      "wswan_turbo_xy",
+      WSWAN_TURBO_XY_LABEL_CHT,
+      NULL,
+      WSWAN_TURBO_XY_INFO_0_CHT,
+      NULL,
+      NULL,
+      {
+         { "disabled", NULL },
+         { "enabled",  NULL },
+         { NULL, NULL },
+      },
+      "enabled",
+   },
+   {
+      "wswan_turbo_speed",
+      WSWAN_TURBO_SPEED_LABEL_CHT,
+      NULL,
+      WSWAN_TURBO_SPEED_INFO_0_CHT,
+      NULL,
+      NULL,
+      {
+         { "2", OPTION_VAL_TURBO_FAST_CHT },
+         { "3", OPTION_VAL_TURBO_NORMAL_CHT },
+         { "4", OPTION_VAL_TURBO_SLOW_CHT },
+         { "6", OPTION_VAL_TURBO_VSLOW_CHT },
+         { NULL, NULL },
+      },
+      "3",
    },
    {
       "wswan_mono_palette",

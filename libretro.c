@@ -1,4 +1,5 @@
 #include <sys/types.h>
+#include <stdio.h>
 
 #include <libretro.h>
 #include <retro_math.h>
@@ -74,6 +75,9 @@ static bool select_pressed_last_frame = false;
 static bool hw_rotate_enabled         = false;
 
 static unsigned rotate_joymap = 0;
+
+static bool turbo_xy_enabled = true;
+static unsigned turbo_phase_frames = 3;
 
 static MDFN_Surface *surf   = NULL;
 static uint16_t *rotate_buf = NULL;
@@ -883,7 +887,7 @@ static void check_variables(int startup)
 
       var.key   = "wswan_birth_year";
       var.value = NULL;
-      setting_wswan_byear = 1989;
+      setting_wswan_byear = 2000;
       if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
       {
          uint32 v = (uint32)atoi(var.value);
@@ -893,7 +897,7 @@ static void check_variables(int startup)
 
       var.key   = "wswan_birth_month";
       var.value = NULL;
-      setting_wswan_bmonth = 6;
+      setting_wswan_bmonth = 5;
       if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
       {
          uint32 v = (uint32)atoi(var.value);
@@ -903,7 +907,7 @@ static void check_variables(int startup)
 
       var.key   = "wswan_birth_day";
       var.value = NULL;
-      setting_wswan_bday = 23;
+      setting_wswan_bday = 17;
       if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
       {
          uint32 v = (uint32)atoi(var.value);
@@ -913,29 +917,29 @@ static void check_variables(int startup)
 
       var.key   = "wswan_sex";
       var.value = NULL;
-      setting_wswan_sex = 2;
+      setting_wswan_sex = 1;
       if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
-         if (!strcmp(var.value, "male"))
-            setting_wswan_sex = 1;
+         if (!strcmp(var.value, "female"))
+            setting_wswan_sex = 2;
 
       var.key   = "wswan_blood";
       var.value = NULL;
-      setting_wswan_blood = 3;
+      setting_wswan_blood = 4;
       if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
       {
          if (!strcmp(var.value, "a"))
             setting_wswan_blood = 1;
          else if (!strcmp(var.value, "b"))
             setting_wswan_blood = 2;
-         else if (!strcmp(var.value, "ab"))
-            setting_wswan_blood = 4;
+         else if (!strcmp(var.value, "o"))
+            setting_wswan_blood = 3;
       }
 
-      strcpy(setting_wswan_name, "Mednafen");
+      strcpy(setting_wswan_name, "lcdyk");
       var.key   = "wswan_name_source";
       var.value = NULL;
-      if (!(environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value &&
-            !strcmp(var.value, "default")))
+      if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value &&
+          !strcmp(var.value, "frontend"))
       {
          const char *username = NULL;
          if (environ_cb(RETRO_ENVIRONMENT_GET_USERNAME, &username) &&
@@ -997,6 +1001,31 @@ static void check_variables(int startup)
       else if (!strcmp(var.value, "auto"))
          rotate_joymap = 2;
    }
+
+   var.key = "wswan_turbo_xy",
+   var.value = NULL;
+
+   if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+      turbo_xy_enabled = !strcmp(var.value, "enabled");
+   else
+      turbo_xy_enabled = true;
+
+   var.key = "wswan_turbo_speed",
+   var.value = NULL;
+
+   if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+   {
+      if (!strcmp(var.value, "2"))
+         turbo_phase_frames = 2;
+      else if (!strcmp(var.value, "4"))
+         turbo_phase_frames = 4;
+      else if (!strcmp(var.value, "6"))
+         turbo_phase_frames = 6;
+      else
+         turbo_phase_frames = 3;
+   }
+   else
+      turbo_phase_frames = 3;
 
    var.key = "wswan_mono_palette",
    var.value = NULL;
@@ -1156,7 +1185,35 @@ bool retro_load_game_special(unsigned a, const struct retro_game_info *b, size_t
 
 #define MAX_PLAYERS 1
 #define MAX_BUTTONS 11
+
+/* Turbo: auto-fire in phases of N emulated frames; the phase
+ * length is configurable via the 'wswan_turbo_speed' option
+ * (3 frames ~ 10 presses per second at 60fps) */
+#define TURBO_PHASE_FRAMES_DEFAULT 3
+
+/* input_buf bit positions, matching the button order of map[][] */
+#define WSWAN_INPUT_A 9
+#define WSWAN_INPUT_B 10
+
 static uint16_t input_buf;
+static uint32_t turbo_counter;
+
+static void set_internal_eeprom_path(void)
+{
+   const char *dir = NULL;
+   char path[4096];
+
+   if (environ_cb(RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY, &dir) && dir && *dir)
+      snprintf(path, sizeof(path), "%s/wswan_internal.eep", dir);
+   else if (environ_cb(RETRO_ENVIRONMENT_GET_SAVE_DIRECTORY, &dir) && dir && *dir)
+      snprintf(path, sizeof(path), "%s/wswan_internal.eep", dir);
+   else
+      snprintf(path, sizeof(path), "wswan_internal.eep");
+
+   WSwan_EEPROMSetPersistPath(path);
+   if (log_cb)
+      log_cb(RETRO_LOG_INFO, "[WSwan] Internal EEPROM file: %s\n", path);
+}
 
 bool retro_load_game(const struct retro_game_info *info)
 {
@@ -1183,6 +1240,8 @@ bool retro_load_game(const struct retro_game_info *info)
       goto error;
 
    environ_cb(RETRO_ENVIRONMENT_SET_INPUT_DESCRIPTORS, desc);
+
+   set_internal_eeprom_path();
 
    if (!MDFNI_LoadGame(MEDNAFEN_CORE_NAME_MODULE,
          (const uint8_t*)info->data, info->size))
@@ -1227,6 +1286,9 @@ bool retro_load_game(const struct retro_game_info *info)
    rotate_tall = false;
    select_pressed_last_frame = false;
    rotate_joymap = 0;
+   turbo_xy_enabled = true;
+   turbo_phase_frames = TURBO_PHASE_FRAMES_DEFAULT;
+   turbo_counter = 0;
 
    check_variables(false);
 
@@ -1280,6 +1342,7 @@ error:
 
 void retro_unload_game(void)
 {
+   WSwan_EEPROMSavePersist();
    MDFNI_CloseGame();
 
    if (surf)
@@ -1375,6 +1438,38 @@ static void update_input(void)
 
    for (i = 0; i < MAX_BUTTONS; i++)
       input_buf |= map[joymap][i] != -1u && ((1 << map[joymap][i]) & bitmask) ? (1 << i) : 0;
+
+   /* Turbo: hold the turbo button to auto-fire A or B.
+    * Each keymap gets the pair of buttons it leaves unused:
+    * landscape maps turbo to X/Y, portrait maps it to L2/R2
+    * (portrait claims X/Y as X Cursor directions and puts
+    * A/B on L/R). */
+   if (turbo_xy_enabled)
+   {
+      unsigned turbo_a_key, turbo_b_key;
+      bool turbo_phase;
+
+      if (!joymap)
+      {
+         turbo_a_key = RETRO_DEVICE_ID_JOYPAD_X;
+         turbo_b_key = RETRO_DEVICE_ID_JOYPAD_Y;
+      }
+      else
+      {
+         turbo_a_key = RETRO_DEVICE_ID_JOYPAD_L2;
+         turbo_b_key = RETRO_DEVICE_ID_JOYPAD_R2;
+      }
+
+      turbo_phase = (turbo_counter++ / turbo_phase_frames) & 1;
+
+      if (turbo_phase)
+      {
+         if (bitmask & (1 << turbo_a_key))
+            input_buf |= 1 << WSWAN_INPUT_A;
+         if (bitmask & (1 << turbo_b_key))
+            input_buf |= 1 << WSWAN_INPUT_B;
+      }
+   }
 
 #ifdef MSB_FIRST
    u.s = input_buf;
@@ -1586,6 +1681,8 @@ void retro_get_system_av_info(struct retro_system_av_info *info)
 
 void retro_deinit(void)
 {
+   WSwan_EEPROMSavePersist();
+
    if (surf)
    {
       if (surf->pixels)
