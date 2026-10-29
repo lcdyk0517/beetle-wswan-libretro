@@ -473,7 +473,7 @@ void WSwan_MemoryInit(bool lang, bool IsWSC, uint32 ssize, bool IsWW_arg)
    sram_size          = ssize;
 
    // WSwan_EEPROMInit() will also clear wsEEPROM
-   WSwan_EEPROMInit(MDFN_GetSettingS("wswan.name"), byear, bmonth, bday, sex, blood);
+   WSwan_EEPROMInit(MDFN_GetSettingS("wswan.name"), byear, bmonth, bday, sex, blood, IsWSC);
 
    if(IsWW)
    {

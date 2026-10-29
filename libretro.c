@@ -402,6 +402,10 @@ static void init_frameskip(void)
  */
 
 int 		wsc = 1;			/*color/mono*/
+/* ROM 页脚 0xFFF1：0=黑白 WS，1=WSC。libretro 的 wsc 固定为 1
+ * （显示/兼容行为不变），但内置 EEPROM 协议必须按实际 ROM 类型选择，
+ * 否则黑白 WS 游戏的通关存档传送会失败。 */
+static int	rom_is_color = 1;
 uint32		rom_size;
 
 uint16 WSButtonStatus;
@@ -570,6 +574,7 @@ static int Load(const uint8_t *data, size_t size)
    memcpy(wsCartROM + (rom_size - real_rom_size), data, size);
 
    memcpy(header, wsCartROM + rom_size - 10, 10);
+   rom_is_color = header[1] != 0;
 
    /* WonderWitch firmware detection, as upstream: 512KB image,
     * "ELISA" font signature, known footer checksum, minus a
@@ -636,7 +641,7 @@ static int Load(const uint8_t *data, size_t size)
       v30mz_init(WSwan_readmem20_WW, WSwan_writemem20_WW, WSwan_readport_WW, WSwan_writeport_WW);
    else
       v30mz_init(WSwan_readmem20, WSwan_writemem20, WSwan_readport, WSwan_writeport);
-   WSwan_MemoryInit(MDFN_GetSettingB("wswan.language"), wsc, SRAMSize, wswan_is_ww); /* EEPROM and SRAM are loaded in this func. */
+   WSwan_MemoryInit(MDFN_GetSettingB("wswan.language"), rom_is_color, SRAMSize, wswan_is_ww); /* EEPROM and SRAM are loaded in this func. */
    WSwan_GfxInit();
 
    WSwan_SoundInit();
